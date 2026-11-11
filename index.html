@@ -200,12 +200,13 @@
   .quote{font-size:19px;font-weight:600;line-height:1.45;color:var(--ink)!important;margin-bottom:12px}
 
   /* contact */
-  .contact{display:grid;grid-template-columns:.9fr 1.1fr;gap:24px}
+  .contact{display:grid;grid-template-columns:1fr;gap:24px}
   .cinfo{padding:36px;display:flex;flex-direction:column;gap:20px;background:var(--ink);color:var(--paper);border:1.5px solid var(--ink)}
-  .cinfo h2{font-family:var(--display);font-weight:900;text-transform:uppercase;font-size:clamp(56px,6vw,96px);line-height:.85}
+  .cinfo h2{font-family:var(--display);font-weight:900;text-transform:uppercase;font-size:clamp(56px,8vw,128px);line-height:.85}
   .cinfo h2 .o{color:var(--signal)}
   .cinfo p{color:#AEB5BE}
   .rows{border-top:1px solid #3A4048}
+  .rows{max-width:760px}
   .rows div{display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-bottom:1px solid #3A4048;font-size:16px}
   .rows dt{color:#AEB5BE}
   .rows dd{font-weight:700;text-align:right}
@@ -354,15 +355,6 @@
         <div id="waSlot"></div>
         <dl class="rows" id="contactRows"></dl>
       </div>
-      <form class="paper form rise" id="contactForm" novalidate>
-        <div class="full"><h3>Send a message</h3></div>
-        <div><label for="f-name">Full name</label><input id="f-name" name="name" autocomplete="name" placeholder="Priya Sharma"><div class="err" id="e-name"></div></div>
-        <div><label for="f-email">Email address</label><input id="f-email" name="email" type="email" autocomplete="email" placeholder="priya@example.com"><div class="err" id="e-email"></div></div>
-        <div class="full"><label for="f-subject">Subject</label><input id="f-subject" name="subject" placeholder="Internship opportunity"><div class="err" id="e-subject"></div></div>
-        <div class="full"><label for="f-message">Message</label><textarea id="f-message" name="message" placeholder="Tell me a little about what you have in mind."></textarea><div class="err" id="e-message"></div></div>
-        <div class="full" id="formMsg" role="status" aria-live="polite"></div>
-        <div class="full"><button class="btn ink" type="submit" id="sendBtn">Send message</button></div>
-      </form>
     </div>
     <footer class="wrap"><span id="foot"></span><a href="#home">Back to top</a></footer>
   </section>
@@ -653,30 +645,6 @@ $('#contactRows').innerHTML = [
   ['Location', ME.location],
   ['Resume', RESUME_URL && `<a href="${RESUME_URL}" data-resume download target="_blank" rel="noopener">Download</a>`],
 ].filter(r => r[1]).map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('');
-(() => {
-  const f = $('#contactForm'), msg = $('#formMsg'), btn = $('#sendBtn');
-  const fields = { name: 'Enter your full name.', email: 'Enter your email address.', subject: 'Enter a subject.', message: 'Enter a message.' };
-  const show = (cls, text) => { msg.innerHTML = `<div class="form-msg ${cls}">${text}</div>`; };
-  const check = k => {
-    const el = f.elements[k], v = el.value.trim(); let e = '';
-    if (!v) e = fields[k];
-    else if (k === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) e = 'Enter a valid email address, like name@example.com.';
-    $('#e-' + k).textContent = e; el.setAttribute('aria-invalid', e ? 'true' : 'false'); return !e;
-  };
-  Object.keys(fields).forEach(k => f.elements[k].addEventListener('input', () => { if (f.elements[k].getAttribute('aria-invalid') === 'true') check(k); }));
-  f.addEventListener('submit', async e => {
-    e.preventDefault(); msg.innerHTML = '';
-    if (!Object.keys(fields).map(check).every(Boolean)) { show('bad', 'Fix the highlighted fields and try again.'); f.querySelector('[aria-invalid="true"]').focus(); return; }
-    if (!FORM_ENDPOINT) { show('info', WA ? `This form isn't connected to an email service yet. Message me on <a href="${WA}" target="_blank" rel="noopener" style="color:inherit;font-weight:700">WhatsApp</a> or email ${ME.email} instead.` : `This form isn't connected to an email service yet. Please email me directly at ${ME.email}.`); return; }
-    btn.disabled = true; btn.textContent = 'Sending…';
-    try {
-      const res = await fetch(FORM_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(Object.fromEntries(Object.keys(fields).map(k => [k, f.elements[k].value.trim()]))) });
-      if (!res.ok) throw new Error();
-      show('ok', 'Message sent. I\'ll get back to you soon.'); f.reset();
-    } catch { show('bad', 'Your message couldn\'t be sent. Check your connection and try again.'); }
-    btn.disabled = false; btn.textContent = 'Send message';
-  });
-})();
 
 /* resume download: inside Claude the viewer's download prompt is used; on a normal host the link just works */
 (() => {
