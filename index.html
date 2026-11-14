@@ -523,6 +523,8 @@ const ACTIVITIES = [
 /* Certifications, oldest first. image = file next to index.html; verify = official verification link. */
 const CERTS = [
   { name: "The Joy of Computing using Python", org: "NPTEL, IIT Madras", date: "Jan – Apr 2024, 12-week course", image: "cert-nptel-joy.jpg", verify: "" },
+  { name: "CCNA: Switching, Routing, and Wireless Essentials", org: "Cisco Networking Academy", date: "3 Jun 2025", image: "cert-cisco-ccna-srwe.jpg", verify: "" },
+  { name: "C++ Essentials 2", org: "Cisco Networking Academy", date: "3 Jun 2025", image: "cert-cisco-cpp-essentials-2.jpg", verify: "" },
   { name: "AWS Academy Graduate – Data Engineering", org: "AWS Academy", date: "13 Mar 2026, 40 hours", image: "cert-aws-data-eng.jpg", verify: "https://www.credly.com/go/tjGuJRVF" },
   { name: "AWS Academy Graduate – Cloud Security Foundations", org: "AWS Academy", date: "14 Mar 2026, 20 hours", image: "cert-aws-cloud-security.jpg", verify: "https://www.credly.com/go/IAEIfFO6" },
   { name: "Practice Python", org: "CodeChef", date: "1 Jun 2026", image: "cert-codechef-practice-python.jpg", verify: "" },
@@ -777,7 +779,7 @@ requestAnimationFrame(() => setTimeout(() => document.body.classList.add('loaded
     skills: (x, z) => { const col = Math.floor((x - 4) / 3); if (x >= 4 && x < 22 && (x - 4) % 3 < 2 && z >= 8 && z < 18 && col < counts.length) return [counts[col] * .9, col % 2 ? WHITE : (z === 8 ? SIG : WHITE)]; return [.2, WHITE]; },
     work: (x, z) => { const inX = x >= 6 && x < 20, inZ = z >= 8 && z < 17; if (inX && inZ) return [x === 6 || x === 19 || z === 8 || z === 16 ? 1.6 : 1.1, z === 8 ? INK : WHITE]; return [.2, WHITE]; },
     experience: () => [.2, WHITE],
-    certifications: (x, z) => { for (let i = 0; i < CN; i++) { const px = 4 + i * 3, pz = 12; if (x >= px && x < px + 2 && z >= pz && z < pz + 2) return [.8 + i * .55, i === CN - 1 ? SIG : INK]; } return [.2, WHITE]; },
+    certifications: (x, z) => { const step = Math.max(2, Math.floor(20 / CN)), wd = step > 2 ? 2 : 1; for (let i = 0; i < CN; i++) { const px = 3 + i * step, pz = 12; if (x >= px && x < px + wd && z >= pz && z < pz + 2) return [.8 + i * .55, i === CN - 1 ? SIG : INK]; } return [.2, WHITE]; },
     testimonials: (x, z, t) => [.25 + .35 * (Math.sin(x * .9 + t) * .5 + .5) * (Math.cos(z * .8 - t) * .5 + .5), WHITE],
     contact: (x, z, t) => { const d = Math.hypot(x - G / 2 + .5, z - G / 2 + .5); return [d < 2 ? 2.8 : .2 + .5 * Math.max(0, Math.sin(d * 1.1 - t * 2.4)) * Math.max(0, 1 - d / 12), d < 2 ? SIG : WHITE]; },
   };
