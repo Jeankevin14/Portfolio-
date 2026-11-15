@@ -175,6 +175,15 @@
   .iso.has-phone .sheetimg{width:76%;margin-right:14%}
   @media (max-width:640px){.iso .phone{width:20%;right:4%;bottom:6%;border-width:3px;border-radius:12px;box-shadow:4px 4px 0 var(--ink)}}
   .pinfo{padding:34px;display:flex;flex-direction:column;gap:16px}
+  .teaser .iso{background:#000;min-height:420px}
+  .teaser .logo{width:min(320px,72%);aspect-ratio:1;border:1.5px solid #000;filter:blur(14px) brightness(.8);transform:scale(.94);transition:filter .7s ease,transform .7s cubic-bezier(.2,.8,.2,1);cursor:pointer}
+  .teaser .logo img{display:block;width:100%;height:100%}
+  .teaser .iso:hover .logo,.teaser .iso:focus-within .logo,.teaser .iso.show .logo{filter:none;transform:scale(1)}
+  .teaser .iso small{background:#000;color:#fff;border-color:#444}
+  .teaser .iso:hover small,.teaser .iso.show small{opacity:0}
+  .teaser .lines p{color:var(--ink);font-size:19px;line-height:1.5}
+  .teaser .lines p+p{margin-top:6px}
+  @media (prefers-reduced-motion:reduce){.teaser .logo{transition:none}}
   .pinfo .meta{font-size:14px;font-weight:700;color:var(--signal-ink)}
   .pinfo h3{font-family:var(--display);font-weight:900;font-size:clamp(40px,3.8vw,56px);text-transform:uppercase;line-height:.9}
   .pinfo p{color:var(--graphite)}
@@ -665,6 +674,26 @@ $('#projects').innerHTML = PROJECTS.map((p, k) => `
       <article class="paper card"><h4>Links</h4>${p.note ? `<p style="margin-bottom:10px">${p.note}</p>` : ''}${p.caseStudy ? `<p style="margin-bottom:8px">Case study: <a href="${p.caseStudy}" style="color:var(--signal-ink);font-weight:600">Read the full story</a></p>` : ''}${p.videoUrl ? `<p style="margin-bottom:8px">Demo video: <a href="${p.videoUrl}" target="_blank" rel="noopener" style="color:var(--signal-ink);font-weight:600">Watch</a></p>` : p.video ? `<p style="margin-bottom:8px">Demo video: <button type="button" data-video="${k}" style="all:unset;cursor:pointer;color:var(--signal-ink);font-weight:600;text-decoration:underline">Watch</button></p>` : ''}${p.live ? `<p>Live site: <a href="${p.live}" target="_blank" rel="noopener" style="color:var(--signal-ink);font-weight:600">${p.live.replace(/^https?:\/\//, '')}</a></p>` : ''}${p.code ? `<p style="margin-top:8px">Source code: <a href="${p.code}" target="_blank" rel="noopener" style="color:var(--signal-ink);font-weight:600">${p.code.replace(/^https?:\/\//, '').replace('/tree/main/', '/')}</a></p>` : ''}</article>
     </div></div></div>
   </div>`).join('');
+$('#projects').insertAdjacentHTML('beforeend', `
+  <div class="rise teaser" style="margin-top:36px">
+    <div class="proj">
+      <div class="paper iso" tabindex="0" role="button" aria-label="Tap to reveal the next project's logo">
+        <div class="logo"><img loading="lazy" src="next/logo.jpg" alt="Logo of the next project"></div>
+        <small>Hover or tap to reveal</small>
+      </div>
+      <div class="paper pinfo">
+        <div class="meta">Next project. In progress</div>
+        <h3>Something is coming</h3>
+        <div class="lines">
+          <p>Every morning, tourists land in Pondicherry looking for a ride.</p>
+          <p>Every morning, local shops wait for customers who can't find them.</p>
+          <p>Something is coming to change that.</p>
+        </div>
+        <div class="chips"><span>🛞 Soon</span></div>
+      </div>
+    </div>
+  </div>`);
+document.querySelector('.teaser .iso').addEventListener('click', e => e.currentTarget.classList.toggle('show'));
 document.querySelectorAll('[data-case]').forEach(b => b.addEventListener('click', () => {
   const open = document.getElementById('case' + b.dataset.case).classList.toggle('open');
   b.setAttribute('aria-expanded', open); b.textContent = open ? 'Close project' : 'View project';
