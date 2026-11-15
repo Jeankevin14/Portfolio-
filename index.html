@@ -167,8 +167,13 @@
   .sheetimg .chrome{display:flex;align-items:center;gap:6px;padding:8px 10px;border-bottom:1.5px solid var(--ink)}
   .sheetimg .chrome i{width:9px;height:9px;border:1.5px solid var(--ink);border-radius:50%}
   .sheetimg .chrome span{margin-left:8px;font-size:12px;color:var(--graphite)}
-  .sheetimg img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;object-position:50% 0}
+  .sheetimg img{display:block;width:100%;height:auto}
   .iso small{position:absolute;bottom:14px;left:16px;font-size:13px;color:var(--graphite);background:var(--paper);padding:3px 8px;border:1px solid var(--rule2)}
+  .iso .phone{position:absolute;right:5%;bottom:7%;width:21%;border:5px solid var(--ink);border-radius:20px;background:var(--paper);box-shadow:8px 8px 0 var(--ink);transform:rotate(4deg);transition:transform .6s cubic-bezier(.2,.8,.2,1);z-index:2;overflow:hidden}
+  .iso .phone img{display:block;width:100%;height:auto}
+  .iso:hover .phone,.iso:focus-within .phone{transform:rotate(0) translateY(-6px)}
+  .iso.has-phone .sheetimg{width:76%;margin-right:14%}
+  @media (max-width:640px){.iso .phone{width:20%;right:4%;bottom:6%;border-width:3px;border-radius:12px;box-shadow:4px 4px 0 var(--ink)}}
   .pinfo{padding:34px;display:flex;flex-direction:column;gap:16px}
   .pinfo .meta{font-size:14px;font-weight:700;color:var(--signal-ink)}
   .pinfo h3{font-family:var(--display);font-weight:900;font-size:clamp(40px,3.8vw,56px);text-transform:uppercase;line-height:.9}
@@ -501,7 +506,7 @@ const PROJECTS = [
     ],
     note: "I wrote the code with an AI assistant (Claude); my role was understanding the problem, product decisions, setup, testing and rollout. Screenshots use sample data.",
     live: "", code: "", caseStudy: "brainy-blooms/",
-    image: "brainy-blooms/img/d_home.jpg", imageAlt: "Brainy Blooms Work Tracker dashboard with overdue, due today and pending task counts and task cards",
+    image: "brainy-blooms/img/d_home.jpg", imageMobile: "brainy-blooms/img/m_home.jpg", imageAlt: "Brainy Blooms Work Tracker dashboard with overdue, due today and pending task counts and task cards",
   },
   {
     title: "ProAuth IQ – AI Prior Authorization Platform",
@@ -634,10 +639,11 @@ $('#resumeSlot').innerHTML = RESUME_URL
 $('#projects').innerHTML = PROJECTS.map((p, k) => `
   <div class="rise" style="${k ? 'margin-top:36px' : ''}">
     <div class="proj">
-      <div class="paper iso" tabindex="0" aria-label="Screenshot of ${p.title}">
+      <div class="paper iso${p.imageMobile ? ' has-phone' : ''}" tabindex="0" aria-label="Screenshot of ${p.title}">
         <div class="sheetimg"><div class="chrome"><i></i><i></i><i></i>${p.live ? `<span>${p.live.replace(/^https?:\/\//, '')}</span>` : ''}</div>
           ${p.image ? `<img loading="lazy" src="${p.image}" alt="${p.imageAlt || 'Screenshot of ' + p.title}">` : `<div style="aspect-ratio:16/9;display:grid;place-items:center;color:var(--graphite)">Screenshot coming soon</div>`}
         </div>
+        ${p.imageMobile ? `<div class="phone"><img loading="lazy" src="${p.imageMobile}" alt="${p.title} on a phone"></div>` : ''}
       </div>
       <div class="paper pinfo">
         <div class="meta">${p.meta}</div>
