@@ -177,13 +177,28 @@
   .pinfo{padding:34px;display:flex;flex-direction:column;gap:16px}
   .teaser .iso{background:#000;min-height:420px}
   .teaser .logo{width:min(320px,72%);aspect-ratio:1;border:1.5px solid #000;filter:blur(14px) brightness(.8);transform:scale(.94);transition:filter .7s ease,transform .7s cubic-bezier(.2,.8,.2,1);cursor:pointer}
-  .teaser .logo img{display:block;width:100%;height:100%}
+  .teaser .logo{position:relative;overflow:hidden}
+  .teaser .logo > img{display:block;width:100%;height:100%}
+  .teaser .wheel{position:absolute;aspect-ratio:1;border-radius:50%;overflow:hidden;background:#000}
+  .teaser .wheel img{position:absolute;max-width:none;height:auto}
+  .teaser .w1{left:40.771%;top:12.012%;width:20.117%;animation:spin 6s linear infinite}
+  .teaser .w1 img{width:497.087%;left:-202.670%;top:-59.709%}
+  .teaser .w2{left:22.314%;top:30.322%;width:18.945%;animation:spin 5s linear infinite reverse}
+  .teaser .w2 img{width:527.835%;left:-117.784%;top:-160.052%}
+  .teaser .w3{left:59.033%;top:30.322%;width:19.141%;animation:spin 7s linear infinite reverse}
+  .teaser .w3 img{width:522.449%;left:-308.418%;top:-158.418%}
+  .teaser .w4{left:40.283%;top:46.436%;width:20.117%;animation:spin 6.5s linear infinite}
+  .teaser .w4 img{width:497.087%;left:-200.243%;top:-230.825%}
+  .teaser .hub{position:absolute;left:46.7%;top:35.7%;width:7.4%;aspect-ratio:1;border-radius:50%;box-shadow:0 0 0 0 rgba(232,160,48,.7);animation:hub 2.4s ease-out infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @keyframes hub{0%{box-shadow:0 0 0 0 rgba(232,160,48,.6)}100%{box-shadow:0 0 0 22px rgba(232,160,48,0)}}
+  .teaser .iso:hover .wheel,.teaser .iso.show .wheel{animation-duration:2.2s}
   .teaser .iso:hover .logo,.teaser .iso:focus-within .logo,.teaser .iso.show .logo{filter:none;transform:scale(1)}
   .teaser .iso small{background:#000;color:#fff;border-color:#444}
   .teaser .iso:hover small,.teaser .iso.show small{opacity:0}
   .teaser .lines p{color:var(--ink);font-size:19px;line-height:1.5}
   .teaser .lines p+p{margin-top:6px}
-  @media (prefers-reduced-motion:reduce){.teaser .logo{transition:none}}
+  @media (prefers-reduced-motion:reduce){.teaser .logo{transition:none}.teaser .wheel,.teaser .hub{animation:none}}
   .pinfo .meta{font-size:14px;font-weight:700;color:var(--signal-ink)}
   .pinfo h3{font-family:var(--display);font-weight:900;font-size:clamp(40px,3.8vw,56px);text-transform:uppercase;line-height:.9}
   .pinfo p{color:var(--graphite)}
@@ -678,7 +693,7 @@ $('#projects').insertAdjacentHTML('beforeend', `
   <div class="rise teaser" style="margin-top:36px">
     <div class="proj">
       <div class="paper iso" tabindex="0" role="button" aria-label="Tap to reveal the next project's logo">
-        <div class="logo"><img loading="lazy" src="next/logo.jpg" alt="Logo of the next project"></div>
+        <div class="logo"><img loading="lazy" src="next/logo.jpg" alt="Logo of the next project"><span class="wheel w1" aria-hidden="true"><img src="next/logo.jpg" alt=""></span><span class="wheel w2" aria-hidden="true"><img src="next/logo.jpg" alt=""></span><span class="wheel w3" aria-hidden="true"><img src="next/logo.jpg" alt=""></span><span class="wheel w4" aria-hidden="true"><img src="next/logo.jpg" alt=""></span><span class="hub" aria-hidden="true"></span></div>
         <small>Hover or tap to reveal</small>
       </div>
       <div class="paper pinfo">
