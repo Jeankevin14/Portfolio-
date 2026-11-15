@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brainy Blooms Work Tracker — Case study by Jean Kevin D</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Case study: one reading column, screenshots break wider; project crimson as the single accent */
+  --paper:#F7F7F4;
+  --surface:#FFFFFF;
+  --ink:#1B1A1F;
+  --muted:#62606B;
+  --line:#E4E2DC;
+  --accent:#C62A26;
+  --gold:#B8860B;
+  --display:'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif;
+  --body:'Instrument Sans', 'Segoe UI', system-ui, sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#141317; --surface:#1D1C21; --ink:#EDEBE6; --muted:#A3A0AA; --line:#2E2C33; --accent:#F0605A; --gold:#E0B246;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#141317; --surface:#1D1C21; --ink:#EDEBE6; --muted:#A3A0AA; --line:#2E2C33; --accent:#F0605A; --gold:#E0B246;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.col{max-width:680px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;letter-spacing:-.01em;margin:0}
+h1{font-size:clamp(38px,6vw,64px);line-height:1.02;font-weight:800}
+h2{font-size:clamp(26px,3.4vw,34px);line-height:1.15;font-weight:800;margin-bottom:14px}
+h3{font-size:19px;font-weight:600;margin-bottom:6px}
+p{margin:0 0 14px}
+.lede{font-size:clamp(19px,2.2vw,22px);line-height:1.5;color:var(--muted);max-width:720px;margin-top:18px}
+.kicker{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+header{padding:64px 0 28px}
+.meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;margin-top:34px;padding-top:22px;border-top:1px solid var(--line)}
+.meta dt{font-size:12.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:600}
+.meta dd{margin:4px 0 0;font-weight:500;font-size:15.5px;line-height:1.45}
+.hero{position:relative;margin:24px 0 10px}
+.hero .desk{border-radius:14px;border:1px solid var(--line);box-shadow:0 24px 60px -24px rgba(20,10,10,.35);width:86%}
+.hero .phone{position:absolute;right:0;bottom:-28px;width:23%;border-radius:26px;border:6px solid var(--ink);box-shadow:0 20px 50px -18px rgba(20,10,10,.45)}
+section{padding:56px 0;border-top:1px solid var(--line)}
+section:first-of-type{border-top:none}
+.num{font-family:var(--display);font-weight:800;color:var(--accent);font-size:15px;letter-spacing:.04em;display:block;margin-bottom:8px}
+.chain{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:20px 0 24px}
+.chain span{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 14px;font-weight:600;font-size:15px}
+.chain i{font-style:normal;color:var(--muted)}
+.chain .gap{border-style:dashed;border-color:var(--accent);color:var(--accent)}
+.role{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 32px;margin-top:20px;padding:0;list-style:none}
+.role li{padding-left:18px;position:relative;font-size:16px}
+.role li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:7px;border-radius:2px;background:var(--accent)}
+.role b{display:block}
+.feat{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:center;padding:30px 0}
+.feat + .feat{border-top:1px dashed var(--line)}
+.feat.flip .shot{order:-1}
+.feat .shot{display:flex;justify-content:center;gap:16px}
+.feat .shot img{border-radius:22px;border:5px solid var(--ink);width:min(260px,100%);box-shadow:0 18px 40px -20px rgba(20,10,10,.4)}
+.feat .shot img.wide{border-radius:12px;border:1px solid var(--line);width:100%}
+.feat ul{margin:10px 0 0;padding-left:20px;color:var(--muted);font-size:15.5px}
+.feat ul li{margin:4px 0}
+.arch{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:22px 0 10px;position:relative}
+.arch div{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px}
+.arch b{display:block;font-family:var(--display);font-size:18px;margin-bottom:4px}
+.arch small{color:var(--muted);font-size:14.5px;line-height:1.5;display:block}
+.arch .tag{display:inline-block;font-size:12px;font-weight:600;color:var(--gold);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.tl{list-style:none;padding:0;margin:22px 0 0;border-left:2px solid var(--line)}
+.tl li{position:relative;padding:0 0 22px 24px}
+.tl li::before{content:"";position:absolute;left:-7px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--paper);border:2px solid var(--accent)}
+.tl b{display:block}
+.tl span{color:var(--muted);font-size:15.5px}
+.dec{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:20px}
+.dec div{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.dec p{color:var(--muted);font-size:15.5px;margin:0}
+.wide-shot{margin:24px 0 0;border-radius:12px;border:1px solid var(--line);box-shadow:0 18px 40px -22px rgba(20,10,10,.35)}
+.cap{font-size:13.5px;color:var(--muted);margin-top:10px}
+footer{border-top:1px solid var(--line);padding:30px 0 50px;color:var(--muted);font-size:14.5px}
+@media (max-width:760px){
+  header{padding-top:40px}
+  .meta{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hero .desk{width:100%}
+  .hero .phone{position:static;width:46%;margin:-60px 12px 0 auto}
+  .feat{grid-template-columns:1fr;gap:20px}
+  .feat.flip .shot{order:0}
+  .role,.dec,.arch{grid-template-columns:1fr}
+  section{padding:42px 0}
+}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<p style="margin:0;padding-top:28px;font-size:15px"><a href="../">← Back to Jean Kevin D's portfolio</a></p>
+
+<header>
+  <div class="kicker">Case study · Operations tool</div>
+  <h1>Brainy Blooms Work Tracker</h1>
+  <p class="lede">A task follow-up system for a CBSE school group with four branches. Work is assigned, deadlines are tracked, and the chairman is alerted only when something is due. It runs for free on Google Workspace and was in daily use by the office team on the weekend it was built.</p>
+  <dl class="meta">
+    <div><dt>My role</dt><dd>Problem discovery, product decisions, setup, testing &amp; rollout</dd></div>
+    <div><dt>Users</dt><dd>School chairman and office team</dd></div>
+    <div><dt>Built with</dt><dd>Google Apps Script, Google Sheets, HTML/CSS/JS, Claude (AI)</dd></div>
+    <div><dt>Cost to run</dt><dd>₹0 per month</dd></div>
+  </dl>
+  <div class="hero">
+    <img class="desk" src="img/d_home.jpg" alt="Desktop dashboard showing task counts by status and task cards with Call, WhatsApp, Extend and Complete buttons">
+    <img class="phone" src="img/m_home.jpg" alt="The same dashboard on a phone">
+  </div>
+</header>
+
+<section>
+  <div class="col">
+    <span class="num">01 · The problem</span>
+    <h2>Work went down the chain. Nothing came back up.</h2>
+    <p>The chairman assigns work to senior officials, who pass it on to staff in maintenance, transport, accounts and the office. Nobody reports back when a job is done or stuck.</p>
+  </div>
+  <div class="chain" aria-label="How work flowed before">
+    <span>Chairman</span><i>→</i><span>Officials</span><i>→</i><span>Staff</span><i>→</i><span class="gap">Done? Late? No signal</span>
+  </div>
+  <div class="col">
+    <p>To find out, the chairman was scrolling WhatsApp groups and pasting chats into ChatGPT to ask whether work was finished. A shed repair given 5 days would be checked 10 to 15 days later, by which time everyone had forgotten. Some staff asked for "5 more days" again and again, and there was no record of it.</p>
+    <p>What he needed was simple: a reminder when work is due, a phone number to call, and a way to see who keeps slipping.</p>
+  </div>
+</section>
+
+<section>
+  <div class="col">
+    <span class="num">02 · My role</span>
+    <h2>I owned the problem, the decisions and the rollout</h2>
+    <p>I wrote the code with an AI assistant (Claude). My job was everything around it: working out what the school actually needed, deciding what to build and what to leave out, and getting it working for real people.</p>
+  </div>
+  <ul class="role">
+    <li><b>Understood the workflow</b>Mapped how tasks move between the chairman, officials and four departments, with real cases like vehicle FC renewals and repair quotations.</li>
+    <li><b>Made the product calls</b>Website instead of a spreadsheet, English only, PIN login instead of accounts, alerts only when work is due.</li>
+    <li><b>Set up and deployed</b>Created the Google account, deployed the web app, and fixed real issues such as multi-account login errors.</li>
+    <li><b>Tested and caught bugs</b>Reported the PIN error and a cropped logo, and checked every update before the team used it.</li>
+    <li><b>Rolled out to the team</b>The office team added their staff and tasks on day one. Updates were shipped without losing any of their data.</li>
+    <li><b>Iterated on feedback</b>Added edit options, branches, WhatsApp and reports as the team asked for them.</li>
+  </ul>
+</section>
+
+<section>
+  <span class="num">03 · The solution</span>
+  <h2>What it does</h2>
+
+  <div class="feat">
+    <div>
+      <h3>Alerts only when work is due</h3>
+      <p>Every morning the system checks pending tasks. If something is due today or overdue, the chairman gets the full details: task, staff, branch, deadline, how many times it was extended, and a phone number. On quiet days, no message is sent.</p>
+      <ul><li>Opening the app shows a follow-up list with Call and WhatsApp buttons</li><li>WhatsApp opens with a reminder message already written</li></ul>
+    </div>
+    <div class="shot"><img src="img/m_alert.jpg" alt="Follow-up popup listing overdue staff with WhatsApp and call buttons"></div>
+  </div>
+
+  <div class="feat flip">
+    <div>
+      <h3>Extensions are counted, not argued</h3>
+      <p>When staff ask for more time, the office records a new date with one tap. The original deadline is kept and each extension is counted, so "5 more days" for the third time is visible to everyone. Staff never have to type excuses into the system.</p>
+      <ul><li>Cards turn amber, then red, as deadlines pass</li><li>Every date change is logged in a history sheet</li></ul>
+    </div>
+    <div class="shot"><img src="img/m_add.jpg" alt="Assign New Task form with Branch, Category, Department and Assign to fields"></div>
+  </div>
+
+  <div class="feat">
+    <div>
+      <h3>Built around four branches</h3>
+      <p>Each task and each staff member belongs to a branch: BBLI, BBCS, BBMS, or BBGS for staff who work across all of them. When you pick a branch while assigning work, only that branch's staff (plus all-branch staff) are offered.</p>
+      <ul><li>Branch and department filters on the dashboard</li><li>Edit, reassign or correct a task without breaking its history</li></ul>
+    </div>
+    <div class="shot"><img src="img/m_card.jpg" alt="Staff report showing a Poor grade, a plain-language summary and a task list"></div>
+  </div>
+
+  <div class="feat flip">
+    <div>
+      <h3>Performance reports anyone can read</h3>
+      <p>Each staff member gets a grade (Excellent, Needs attention or Poor) and one plain sentence, for example: "Finished 2 of 4 tasks · none on time · 1 overdue now · asked for more time 3 times." Behind it is a score out of 100 based on on-time completion, extensions, overdue work and speed.</p>
+      <ul><li>Monthly view, branch comparison, and a branded PDF for meetings</li><li>Staff with fewer than 3 tasks are not graded, so one bad week does not label anyone</li></ul>
+    </div>
+    <div class="shot"><img class="wide" src="img/d_report.jpg" alt="Staff performance report on desktop with summary numbers, top performers and staff to follow up"></div>
+  </div>
+</section>
+
+<section>
+  <div class="col">
+    <span class="num">04 · How it works</span>
+    <h2>Three free Google pieces, no server to pay for</h2>
+  </div>
+  <div class="arch">
+    <div><span class="tag">Front end</span><b>Website</b><small>A mobile-first web page in the school's colours. The office team adds tasks, extends deadlines and marks work complete.</small></div>
+    <div><span class="tag">Back end</span><b>Apps Script</b><small>Checks the PIN, saves changes, works out overdue tasks and ratings, and sends the 9 AM due alerts by email or Telegram.</small></div>
+    <div><span class="tag">Database</span><b>Google Sheet</b><small>Tasks, staff, branches, settings and a full history of every deadline change. Nobody needs to open it.</small></div>
+  </div>
+  <p class="cap">The website never touches the sheet directly. Every request goes through the back end, which checks the PIN first.</p>
+</section>
+
+<section>
+  <div class="col">
+    <span class="num">05 · Key decisions</span>
+    <h2>Trade-offs I chose</h2>
+  </div>
+  <div class="dec">
+    <div><h3>Free over custom hosting</h3><p>Google Apps Script with a Sheet costs nothing and needs no maintenance. A paid server would mean a monthly bill and a developer on call for a small school office.</p></div>
+    <div><h3>One PIN instead of accounts</h3><p>Only the chairman and office team use it, so a shared PIN keeps sign-in simple on any phone. The PIN is checked on the server, never in the browser.</p></div>
+    <div><h3>Alerts only when due</h3><p>A daily summary would quickly be ignored. Sending a message only when work is due keeps every alert worth reading.</p></div>
+    <div><h3>Count extensions, skip reasons</h3><p>Asking staff for a reason every time just collects excuses. Counting extensions shows the pattern, and the chairman can still call to ask why.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="col">
+    <span class="num">06 · Iterations</span>
+    <h2>Shipped in small steps, with the team already using it</h2>
+  </div>
+  <ol class="tl">
+    <li><b>Idea</b><span>Started as a Google Sheet with Telegram reminders. The chairman wanted a website instead.</span></li>
+    <li><b>First website</b><span>Branded dashboard, PIN login, overdue tracking, extension counts and Green / Yellow / Red ratings.</span></li>
+    <li><b>Ready for real use</b><span>Switched to English only, removed sample data and organised the sheet so the team could start fresh.</span></li>
+    <li><b>Team feedback</b><span>Edit options for staff and tasks, a plain date picker, and alerts only when work is due.</span></li>
+    <li><b>Multi-branch</b><span>Four branches, with BBGS meaning all branches, added without moving any existing data.</span></li>
+    <li><b>WhatsApp and reports</b><span>One-tap WhatsApp reminders and a plain-language performance report with PDF export.</span></li>
+  </ol>
+  <img class="wide-shot" src="img/d_pdf.jpg" alt="Printed staff performance report with a staff table, branch table and grades">
+  <p class="cap">The monthly report as a PDF, ready to print for a staff meeting.</p>
+</section>
+
+<section>
+  <div class="col">
+    <span class="num">07 · What I learned</span>
+    <h2>The hard part was not the code</h2>
+    <p>The most useful work was listening: the chairman did not need reasons or long reports, he needed to know who to call today. Shipping updates while the team was already entering real data taught me to test every change against existing data first. And working with AI taught me to be precise about what I want, then check the result myself instead of trusting it.</p>
+  </div>
+</section>
+
+<footer>
+  All screenshots use sample data. Staff names, phone numbers and tasks shown are examples, not real school records. The Brainy Blooms name and logo belong to the school.
+</footer>
+
+</div>
+</body>
+</html>

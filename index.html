@@ -450,10 +450,10 @@ const STACK_ORDER = ["Soft Skills", "Tools", "Programming Languages", "Database"
 
 /* Where each skill was used. Links point to sections on this page. Add entries as you build more. */
 const USED_IN = {
-  "HTML": [["Teambull Fuel House", "#work"], ["ProAuth IQ", "#work"]],
-  "CSS": [["Teambull Fuel House", "#work"], ["ProAuth IQ", "#work"]],
+  "HTML": [["Teambull Fuel House", "#work"], ["ProAuth IQ", "#work"], ["Brainy Blooms", "#work"]],
+  "CSS": [["Teambull Fuel House", "#work"], ["ProAuth IQ", "#work"], ["Brainy Blooms", "#work"]],
   "React": [["Teambull Fuel House", "#work"], ["ProAuth IQ", "#work"]],
-  "JavaScript": [["ProAuth IQ", "#work"]],
+  "JavaScript": [["ProAuth IQ", "#work"], ["Brainy Blooms", "#work"]],
   "Front-End Development": [["Teambull Fuel House", "#work"], ["ProAuth IQ", "#work"]],
   "Google Sheets API": [["Teambull Fuel House", "#work"]],
 };
@@ -484,6 +484,24 @@ const PROJECTS = [
     live: "https://www.teambullfuelhouse.com", code: "https://github.com/Jeankevin14/teambull-fuel-house",
     videoUrl: "https://drive.google.com/drive/folders/1TkHMaC4h807wmJ5QqjArUa66QsPUel-9?usp=sharing",
     image: "teambull-site-v2.jpg", imageAlt: "Homepage of the Teambull Fuel House website",
+  },
+  {
+    title: "Brainy Blooms Work Tracker",
+    meta: "Product owner: discovery, decisions, setup and rollout. In daily use",
+    desc: "A task follow-up system for a CBSE school group with four branches. Work is assigned, deadlines are tracked, and the chairman is alerted only when something is due. It runs for free on Google Workspace.",
+    stack: ["Google Apps Script", "Google Sheets (database)", "HTML, CSS and JavaScript", "Claude (AI) for writing the code"],
+    tags: ["Google Apps Script", "Google Sheets", "JavaScript", "Automation", "Product decisions", "₹0 per month"],
+    features: [
+      "Alerts the chairman only when work is due or overdue, with the task, staff, branch, deadline and a phone number",
+      "Follow-up list with one-tap Call and WhatsApp buttons, the reminder message already written",
+      "Extensions recorded with one tap; the original deadline is kept and every extension is counted and logged",
+      "Built around four branches, with branch and department filters",
+      "Staff performance grades in plain language, a monthly view and a branded PDF report",
+      "Shared PIN login checked on the server; the website never touches the sheet directly",
+    ],
+    note: "I wrote the code with an AI assistant (Claude); my role was understanding the problem, product decisions, setup, testing and rollout. Screenshots use sample data.",
+    live: "", code: "", caseStudy: "brainy-blooms/",
+    image: "brainy-blooms/img/d_home.jpg", imageAlt: "Brainy Blooms Work Tracker dashboard with overdue, due today and pending task counts and task cards",
   },
   {
     title: "ProAuth IQ – AI Prior Authorization Platform",
@@ -629,15 +647,16 @@ $('#projects').innerHTML = PROJECTS.map((p, k) => `
         <div class="actions">
           ${p.live ? `<a class="btn ink" href="${p.live}" target="_blank" rel="noopener">View live site</a>` : ''}
           ${p.code ? `<a class="btn" href="${p.code}" target="_blank" rel="noopener">View code</a>` : ''}
+          ${p.caseStudy ? `<a class="btn${p.live ? '' : ' ink'}" href="${p.caseStudy}">Read case study</a>` : ''}
           ${p.videoUrl ? `<a class="btn" href="${p.videoUrl}" target="_blank" rel="noopener">▶ Watch demo video</a>` : p.video ? `<button class="btn" type="button" data-video="${k}">▶ Watch demo video</button>` : ''}
-          <button class="btn${p.live ? '' : ' ink'}" type="button" data-case="${k}" aria-expanded="false">View project</button>
+          <button class="btn${p.live || p.caseStudy ? '' : ' ink'}" type="button" data-case="${k}" aria-expanded="false">View project</button>
         </div>
       </div>
     </div>
     <div class="case" id="case${k}"><div><div class="grid3">
       <article class="paper card" style="grid-column:1/-1"><h4>Key features</h4><ul class="cols">${p.features.map(f => `<li>${f}</li>`).join('')}</ul></article>
       <article class="paper card"><h4>Built with</h4><ul>${p.stack.map(f => `<li>${f}</li>`).join('')}</ul></article>
-      <article class="paper card"><h4>Links</h4>${p.note ? `<p style="margin-bottom:10px">${p.note}</p>` : ''}${p.videoUrl ? `<p style="margin-bottom:8px">Demo video: <a href="${p.videoUrl}" target="_blank" rel="noopener" style="color:var(--signal-ink);font-weight:600">Watch</a></p>` : p.video ? `<p style="margin-bottom:8px">Demo video: <button type="button" data-video="${k}" style="all:unset;cursor:pointer;color:var(--signal-ink);font-weight:600;text-decoration:underline">Watch</button></p>` : ''}${p.live ? `<p>Live site: <a href="${p.live}" target="_blank" rel="noopener" style="color:var(--signal-ink);font-weight:600">${p.live.replace(/^https?:\/\//, '')}</a></p>` : ''}${p.code ? `<p style="margin-top:8px">Source code: <a href="${p.code}" target="_blank" rel="noopener" style="color:var(--signal-ink);font-weight:600">${p.code.replace(/^https?:\/\//, '').replace('/tree/main/', '/')}</a></p>` : ''}</article>
+      <article class="paper card"><h4>Links</h4>${p.note ? `<p style="margin-bottom:10px">${p.note}</p>` : ''}${p.caseStudy ? `<p style="margin-bottom:8px">Case study: <a href="${p.caseStudy}" style="color:var(--signal-ink);font-weight:600">Read the full story</a></p>` : ''}${p.videoUrl ? `<p style="margin-bottom:8px">Demo video: <a href="${p.videoUrl}" target="_blank" rel="noopener" style="color:var(--signal-ink);font-weight:600">Watch</a></p>` : p.video ? `<p style="margin-bottom:8px">Demo video: <button type="button" data-video="${k}" style="all:unset;cursor:pointer;color:var(--signal-ink);font-weight:600;text-decoration:underline">Watch</button></p>` : ''}${p.live ? `<p>Live site: <a href="${p.live}" target="_blank" rel="noopener" style="color:var(--signal-ink);font-weight:600">${p.live.replace(/^https?:\/\//, '')}</a></p>` : ''}${p.code ? `<p style="margin-top:8px">Source code: <a href="${p.code}" target="_blank" rel="noopener" style="color:var(--signal-ink);font-weight:600">${p.code.replace(/^https?:\/\//, '').replace('/tree/main/', '/')}</a></p>` : ''}</article>
     </div></div></div>
   </div>`).join('');
 document.querySelectorAll('[data-case]').forEach(b => b.addEventListener('click', () => {
