@@ -179,7 +179,7 @@
   .teaser .iso::before{content:"";position:absolute;inset:0;pointer-events:none;
     background:linear-gradient(transparent calc(28% - 1px),#2E3037 calc(28% - 1px) calc(28% + 2px),transparent calc(28% + 2px) calc(72% - 2px),#2E3037 calc(72% - 2px) calc(72% + 1px),transparent calc(72% + 1px)),
       radial-gradient(ellipse at 50% 50%,rgba(232,160,48,.10),transparent 60%)}
-  .teaser .iso::after{content:"";position:absolute;left:0;right:0;top:calc(50% - 2px);height:4px;pointer-events:none;
+  .teaser .lane{position:absolute;left:0;right:0;top:calc(50% - 2px);height:4px;pointer-events:none;
     background:repeating-linear-gradient(90deg,rgba(232,160,48,.45) 0 34px,transparent 34px 68px);background-size:68px 4px;animation:lane 1.6s linear infinite}
   @keyframes lane{to{background-position:-68px 0}}
   .teaser .logo{position:relative;z-index:1;mix-blend-mode:lighten;width:min(320px,72%);aspect-ratio:1;filter:blur(14px) brightness(.8);transform:scale(.94);transition:filter .7s ease,transform .7s cubic-bezier(.2,.8,.2,1);cursor:pointer}
@@ -198,13 +198,15 @@
   .teaser .hub{position:absolute;left:46.7%;top:35.7%;width:7.4%;aspect-ratio:1;border-radius:50%;box-shadow:0 0 0 0 rgba(232,160,48,.7);animation:hub 2.4s ease-out infinite}
   @keyframes spin{to{transform:rotate(360deg)}}
   @keyframes hub{0%{box-shadow:0 0 0 0 rgba(232,160,48,.6)}100%{box-shadow:0 0 0 22px rgba(232,160,48,0)}}
-  .teaser .iso:hover .wheel,.teaser .iso.show .wheel{animation-duration:2.2s}
+  .teaser .iso{touch-action:pan-y;cursor:ew-resize}
+  .teaser .speedo{position:absolute;right:16px;bottom:14px;z-index:2;font-family:var(--display);font-weight:900;font-size:26px;line-height:1;color:#E8A030;text-align:right;font-variant-numeric:tabular-nums}
+  .teaser .speedo small{all:unset;display:block;font-family:'Hanken Grotesk',sans-serif;font-weight:600;font-size:11px;color:#8A8F99;margin-top:3px}
   .teaser .iso:hover .logo,.teaser .iso:focus-within .logo,.teaser .iso.show .logo{filter:none;transform:scale(1)}
-  .teaser .iso small{z-index:2;background:#16171B;color:#fff;border-color:#444}
-  .teaser .iso:hover small,.teaser .iso.show small{opacity:0}
+  .teaser .iso > small{z-index:2;background:#16171B;color:#fff;border-color:#444}
+  .teaser .iso:hover > small,.teaser .iso.show > small{opacity:0}
   .teaser .lines p{color:var(--ink);font-size:19px;line-height:1.5}
   .teaser .lines p+p{margin-top:6px}
-  @media (prefers-reduced-motion:reduce){.teaser .logo{transition:none}.teaser .wheel,.teaser .hub,.teaser .iso::after{animation:none}}
+  @media (prefers-reduced-motion:reduce){.teaser .logo{transition:none}.teaser .wheel,.teaser .hub,.teaser .lane{animation:none}}
   .pinfo .meta{font-size:14px;font-weight:700;color:var(--signal-ink)}
   .pinfo h3{font-family:var(--display);font-weight:900;font-size:clamp(40px,3.8vw,56px);text-transform:uppercase;line-height:.9}
   .pinfo p{color:var(--graphite)}
@@ -700,7 +702,9 @@ $('#projects').insertAdjacentHTML('beforeend', `
     <div class="proj">
       <div class="paper iso" tabindex="0" role="button" aria-label="Tap to reveal the next project's logo">
         <div class="logo"><img loading="lazy" src="next/logo.jpg" alt="Logo of the next project"><span class="wheel w1" aria-hidden="true"><img src="next/logo.jpg" alt=""></span><span class="wheel w2" aria-hidden="true"><img src="next/logo.jpg" alt=""></span><span class="wheel w3" aria-hidden="true"><img src="next/logo.jpg" alt=""></span><span class="wheel w4" aria-hidden="true"><img src="next/logo.jpg" alt=""></span><span class="hub" aria-hidden="true"></span></div>
-        <small>Hover or tap to reveal</small>
+        <span class="lane" aria-hidden="true"></span>
+        <small>Move across to drive. Tap to reveal</small>
+        <div class="speedo" aria-hidden="true"><span>40</span><small>km/h</small></div>
       </div>
       <div class="paper pinfo">
         <div class="meta">Next project. In progress</div>
@@ -714,7 +718,25 @@ $('#projects').insertAdjacentHTML('beforeend', `
       </div>
     </div>
   </div>`);
-document.querySelector('.teaser .iso').addEventListener('click', e => e.currentTarget.classList.toggle('show'));
+(() => {
+  const iso = document.querySelector('.teaser .iso'), out = iso.querySelector('.speedo span');
+  iso.addEventListener('click', () => iso.classList.toggle('show'));
+  iso.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); iso.classList.toggle('show'); } });
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  let target = 1, rate = 1, idle;
+  const anims = () => iso.getAnimations({ subtree: true }).filter(a => a.animationName && a.animationName !== 'hub');
+  iso.addEventListener('pointermove', e => {
+    const b = iso.getBoundingClientRect(), x = Math.min(1, Math.max(0, (e.clientX - b.left) / b.width));
+    target = 0.25 + x * x * 4.75; clearTimeout(idle); idle = setTimeout(() => target = 1, 1400);
+  });
+  iso.addEventListener('pointerleave', () => { clearTimeout(idle); target = 1; });
+  (function tick() {
+    rate += (target - rate) * 0.08;
+    anims().forEach(a => a.playbackRate = rate);
+    out.textContent = Math.round(rate * 40);
+    requestAnimationFrame(tick);
+  })();
+})();
 document.querySelectorAll('[data-case]').forEach(b => b.addEventListener('click', () => {
   const open = document.getElementById('case' + b.dataset.case).classList.toggle('open');
   b.setAttribute('aria-expanded', open); b.textContent = open ? 'Close project' : 'View project';
