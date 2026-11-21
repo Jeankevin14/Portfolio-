@@ -667,7 +667,7 @@ $('#aboutIntro').innerHTML = ABOUT.map(p => `<p>${p}</p>`).join('');
 $('#facts').innerHTML = FACTS.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('');
 $('#strengths').innerHTML = STRENGTHS.map(x => `<span>${x}</span>`).join('');
 $('#resumeSlot').innerHTML = RESUME_URL
-  ? `<a class="btn ink" href="${RESUME_URL}" data-resume download target="_blank" rel="noopener">Download resume</a>`
+  ? `<a class="btn ink" href="${RESUME_URL}" download target="_blank" rel="noopener">Download resume</a>`
   : '';
 
 /* skills */
@@ -824,26 +824,8 @@ $('#contactRows').innerHTML = [
   ['GitHub', ME.github && `<a href="${ME.github}" target="_blank" rel="noopener">${ME.github.replace(/^https?:\/\//, '')}</a>`],
   ['LinkedIn', ME.linkedin && `<a href="${ME.linkedin}" target="_blank" rel="noopener">View profile</a>`],
   ['Location', ME.location],
-  ['Resume', RESUME_URL && `<a href="${RESUME_URL}" data-resume download target="_blank" rel="noopener">Download</a>`],
+  ['Resume', RESUME_URL && `<a href="${RESUME_URL}" download target="_blank" rel="noopener">Download</a>`],
 ].filter(r => r[1]).map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('');
-
-/* resume download: inside Claude the viewer's download prompt is used; on a normal host the link just works */
-(() => {
-  let DL = null;
-  try { if (window.claude && claude.use) claude.use('downloads').then(d => { DL = d; }).catch(() => {}); } catch (e) {}
-  document.addEventListener('click', async e => {
-    const a = e.target.closest('[data-resume]'); if (!a || !DL) return;
-    e.preventDefault();
-    const label = a.textContent;
-    try {
-      const blob = await (await fetch(RESUME_URL)).blob();
-      await DL.save({ filename: 'Jean-Kevin-D-Resume.pdf', data: blob });
-    } catch (err) {
-      if (err && err.code === 'declined') return;
-      a.textContent = 'Download unavailable here'; setTimeout(() => a.textContent = label, 2500);
-    }
-  });
-})();
 
 const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .1 });
 document.querySelectorAll('.rise').forEach(el => io.observe(el));
