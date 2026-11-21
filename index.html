@@ -907,6 +907,43 @@ requestAnimationFrame(() => setTimeout(() => document.body.classList.add('loaded
   addEventListener('resize', size); size();
   cam.position.copy(ISO).multiplyScalar(60); cam.lookAt(0, 0, 0);
 
+  // Screen axes of the camera. The camera looks at the origin, so a world point p
+  // appears at (p·R, p·U) on screen, in the same units as cam.left/right/top/bottom.
+  cam.updateMatrixWorld();
+  const R = new THREE.Vector3().setFromMatrixColumn(cam.matrixWorld, 0), U = new THREE.Vector3().setFromMatrixColumn(cam.matrixWorld, 1);
+  // On-screen box of the JK monogram (field scale 1): every corner of the letter blocks, tallest height included.
+  let mx0 = Infinity, mx1 = -Infinity, my0 = Infinity, my1 = -Infinity;
+  const corner = new THREE.Vector3();
+  mono.forEach(i => {
+    const cx = (i % G - G / 2 + .5) * S, cz = (Math.floor(i / G) - G / 2 + .5) * S;
+    for (const dx of [-.5, .5]) for (const dz of [-.5, .5]) for (const y of [0, 3.2]) {
+      corner.set(cx + dx * S, y, cz + dz * S);
+      const sx = corner.dot(R), sy = corner.dot(U);
+      mx0 = Math.min(mx0, sx); mx1 = Math.max(mx1, sx); my0 = Math.min(my0, sy); my1 = Math.max(my1, sy);
+    }
+  });
+  const MW = mx1 - mx0, MH = my1 - my0, MCX = (mx0 + mx1) / 2, MCY = (my0 + my1) / 2;
+  // Ground offset (dx, 0, dz) that moves the field by (sx, sy) on screen.
+  const det = R.x * U.z - R.z * U.x;
+  const groundFor = (sx, sy) => [(sx * U.z - R.z * sy) / det, (R.x * sy - sx * U.x) / det];
+  // Where the hero monogram should sit, and how big it may be, for the current window.
+  function heroTarget(wide){
+    const vw = cam.right - cam.left, vh = cam.top - cam.bottom, perPx = vh / innerHeight;
+    let cx, cy, scale;
+    if (wide) {
+      // centre of the right half, a little below the middle, fully inside the screen
+      scale = Math.min(1, (vw * .5 * .8) / MW, (vh * .62) / MH);
+      cx = vw / 4; cy = -vh * .03;
+    } else {
+      // the free band above the name: below the top bar (about 76px), above 46vh where the text starts
+      const top = 76, bottom = innerHeight * .46, band = Math.max(bottom - top, 120);
+      scale = Math.min(.9, (vw * .84) / MW, (band * perPx * .86) / MH);
+      cx = 0; cy = vh / 2 - (top + band / 2) * perPx;
+    }
+    const [dx, dz] = groundFor(cx - MCX * scale, cy - MCY * scale);
+    return [dx, dz, scale];
+  }
+
   const secs = ['home', ...NAV.map(n => n[0])].map(id => document.getElementById(id)).filter(Boolean);
   const navLinks = [...document.querySelectorAll('#links a')];
   const clock = new THREE.Clock();
@@ -919,7 +956,8 @@ requestAnimationFrame(() => setTimeout(() => document.body.classList.add('loaded
 
     // place the field: right side in hero on desktop, centred and lower elsewhere
     const wide = innerWidth > 1050, hero = active === 'home';
-    const tx = wide ? (hero ? 7.5 : 9.5) : 0, tz = wide ? (hero ? -7.5 : -9.5) : (hero ? -6.5 : -3), ts = wide ? (hero ? 1 : .8) : .75;
+    let tx = wide ? 9.5 : 0, tz = wide ? -9.5 : -3, ts = wide ? .8 : .75;
+    if (hero) [tx, tz, ts] = heroTarget(wide);
     fx += (tx - fx) * .05; fz += (tz - fz) * .05; fs += (ts - fs) * .05;
     field.position.set(fx, 0, fz); field.scale.setScalar(fs);
 
