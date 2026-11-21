@@ -494,10 +494,10 @@ const STACK_ORDER = ["Soft Skills", "Tools", "Programming Languages", "Database"
 
 /* Where each skill was used. Links point to sections on this page. Add entries as you build more. */
 const USED_IN = {
-  "HTML": [["Teambull Fuel House", "#work"], ["ProAuth IQ", "#work"], ["Brainy Blooms", "#work"]],
-  "CSS": [["Teambull Fuel House", "#work"], ["ProAuth IQ", "#work"], ["Brainy Blooms", "#work"]],
+  "HTML": [["Teambull Fuel House", "#work"], ["ProAuth IQ", "#work"], ["Brainy Blooms", "#work"], ["Brainy Blooms Assessment", "#work"]],
+  "CSS": [["Teambull Fuel House", "#work"], ["ProAuth IQ", "#work"], ["Brainy Blooms", "#work"], ["Brainy Blooms Assessment", "#work"]],
   "React": [["Teambull Fuel House", "#work"], ["ProAuth IQ", "#work"]],
-  "JavaScript": [["ProAuth IQ", "#work"], ["Brainy Blooms", "#work"]],
+  "JavaScript": [["ProAuth IQ", "#work"], ["Brainy Blooms", "#work"], ["Brainy Blooms Assessment", "#work"]],
   "Front-End Development": [["Teambull Fuel House", "#work"], ["ProAuth IQ", "#work"]],
   "Google Sheets API": [["Teambull Fuel House", "#work"]],
 };
@@ -546,6 +546,26 @@ const PROJECTS = [
     note: "I designed the solution and directed AI-assisted development, testing and reviewing every change before the team used it. Screenshots use sample data.",
     live: "", code: "", caseStudy: "brainy-blooms/",
     image: "brainy-blooms/img/d_home.jpg", imageMobile: "brainy-blooms/img/m_home.jpg", imageAlt: "Brainy Blooms Work Tracker dashboard with overdue, due today and pending task counts and task cards",
+  },
+  {
+    title: "Brainy Blooms Student Assessment",
+    meta: "Built for 3 school branches, Classes 1 to 8. 2026",
+    desc: "An online assessment website for a CBSE school group. Children write their term papers exactly as printed, including listening, speaking and reading aloud, with no teacher needed in the room, and see their report the moment they submit. Teachers change the papers every term from a Word file.",
+    stack: ["HTML, CSS and JavaScript (no framework)", "Cloudflare Workers with Hono", "Cloudflare D1 (SQLite)", "Web Speech API and MediaRecorder", "Mammoth.js for reading Word files"],
+    tags: ["JavaScript", "Cloudflare Workers", "SQL", "Speech recognition", "Designed for young children", "Product decisions"],
+    features: [
+      "Papers shown exactly as printed, one section per page, with a timer that submits on its own",
+      "Fill-in blanks, tap-to-choose options, and tap buttons for Tamil letters, symbols and word order, so Class 1 children don't have to type",
+      "Listening passages played in the teacher's recorded voice, or read aloud by the device, up to 5 times",
+      "Spoken and reading-aloud answers recorded with the microphone and marked with speech-to-text; teachers can listen and change the mark",
+      "Certificate-style report the moment a child submits, with marks by section",
+      "New papers each term from a Word template, read in the browser and shown for checking before saving",
+      "Teacher marking, class summary by school, class and section, and an Excel download",
+      "Correct answers never reach the child's device, and voice recordings are for signed-in staff only",
+    ],
+    note: "I designed the solution and directed AI-assisted development, testing and reviewing every change before handover. Screenshots use sample data.",
+    live: "", code: "",
+    image: "brainy-blooms-assessment/img/d_paper.jpg", imageMobile: "brainy-blooms-assessment/img/m_paper.jpg", imageAlt: "Brainy Blooms Student Assessment: a Class 1 English grammar section with fill-in blanks and tap buttons, and a timer",
   },
   {
     title: "ProAuth IQ – AI Prior Authorization Platform",
