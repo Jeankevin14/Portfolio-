@@ -1,0 +1,17 @@
+# Secrets: never commit these
+.env
+.env.*
+!.env.example
+.clasprc.json
+*.pem
+*.key
+
+# Generated
+dist/
+node_modules/
+.vercel/
+
+# System files
+.DS_Store
+Thumbs.db
+*.log

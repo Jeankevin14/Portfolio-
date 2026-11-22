@@ -1,0 +1,21 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run all checks (lint, secrets, build, tests)",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "check"],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Check the live site",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/smoke.mjs",
+      "args": ["https://jeankevin.vercel.app"],
+      "console": "integratedTerminal"
+    }
+  ]
+}

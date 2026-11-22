@@ -1,0 +1,28 @@
+# After Vercel finishes a deploy, open the deployed site and check it really works.
+# Vercel does the deploy itself (from Git). This workflow only checks the result.
+name: Live site check
+
+on:
+  deployment_status:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: Site address to check
+        default: https://jeankevin.vercel.app
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    name: Check the deployed site
+    if: github.event_name == 'workflow_dispatch' || github.event.deployment_status.state == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check the site
+        run: node scripts/smoke.mjs "${{ github.event.deployment_status.environment_url || inputs.url || 'https://jeankevin.vercel.app' }}"

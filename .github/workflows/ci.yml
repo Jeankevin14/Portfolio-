@@ -1,0 +1,40 @@
+# Runs on every pull request (and on main after a merge).
+# If any step fails, the PR shows a red cross and should not be merged.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Lint, build and test
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Syntax and lint
+        run: npm run lint
+
+      - name: Secrets check
+        run: npm run secrets
+
+      - name: Build check
+        run: npm run build:check
+
+      - name: Tests
+        run: npm test
