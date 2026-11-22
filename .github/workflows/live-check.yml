@@ -1,0 +1,51 @@
+# After a merge to main, wait for Vercel to finish the deploy,
+# then open the live site and check that it really works.
+# Vercel does the deploy itself (from Git). This workflow only checks the result.
+name: Live site check
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      url:
+        description: Site address to check
+        default: https://jeankevin.vercel.app
+
+permissions:
+  contents: read
+  statuses: read
+
+jobs:
+  smoke:
+    name: Check the live site
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Wait for the Vercel deploy to finish
+        if: github.event_name == 'push'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for i in $(seq 1 60); do
+            state=$(gh api "repos/${{ github.repository }}/commits/${{ github.sha }}/status" \
+              --jq '[.statuses[] | select(.context == "Vercel")][0].state // "waiting"')
+            echo "Vercel deploy: $state"
+            if [ "$state" = "success" ]; then exit 0; fi
+            if [ "$state" = "failure" ] || [ "$state" = "error" ]; then
+              echo "::error::Vercel could not deploy this commit. Open the Vercel dashboard to see why."
+              exit 1
+            fi
+            sleep 10
+          done
+          echo "::error::Vercel did not finish within 10 minutes."
+          exit 1
+
+      - name: Check the site
+        run: node scripts/smoke.mjs "${{ inputs.url || 'https://jeankevin.vercel.app' }}"

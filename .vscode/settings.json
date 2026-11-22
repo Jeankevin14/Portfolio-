@@ -1,0 +1,16 @@
+{
+  "editor.formatOnSave": false,
+  "[javascript]": { "editor.defaultFormatter": "esbenp.prettier-vscode", "editor.formatOnSave": true },
+  "[json]": { "editor.defaultFormatter": "esbenp.prettier-vscode", "editor.formatOnSave": true },
+  "[markdown]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[html]": { "editor.formatOnSave": false },
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "files.exclude": { "dist": true },
+  "git.confirmSync": false,
+  "git.autofetch": true,
+  "liveServer.settings.port": 5500
+}

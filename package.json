@@ -1,0 +1,16 @@
+{
+  "name": "jean-kevin-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Portfolio website of Jean Kevin D. Static HTML, CSS and JavaScript, hosted on Vercel.",
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "lint": "node scripts/lint.mjs",
+    "secrets": "node scripts/check-secrets.mjs",
+    "build:check": "node scripts/build.mjs",
+    "test": "node --test \"tests/**/*.test.mjs\"",
+    "check": "npm run lint && npm run secrets && npm run build:check && npm test",
+    "start": "npx --yes serve@14 ."
+  }
+}

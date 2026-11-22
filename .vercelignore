@@ -1,0 +1,12 @@
+# Tooling files that should not be published on the website
+.github
+.vscode
+docs
+tests
+scripts
+dist
+package.json
+CHANGELOG.md
+.env.example
+.editorconfig
+.prettierrc.json

@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "eamodio.gitlens",
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "ritwickdey.LiveServer",
+    "github.vscode-github-actions",
+    "github.vscode-pull-request-github",
+    "editorconfig.editorconfig",
+    "humao.rest-client"
+  ]
+}
