@@ -6,7 +6,7 @@ Versions follow `vMAJOR.MINOR.PATCH` (see docs/deployment.md).
 ## [1.0.0] - 2026-11-22
 ### Added
 - Project standard setup: CI on every pull request (lint, secrets check, build check, tests).
-- Automatic live-site check after every Vercel deploy.
+- Automatic live-site check after every merge to main (waits for Vercel, then opens the site).
 - Tests for projects, certificates, skills, images and links.
 - `.gitignore` that blocks `.env` files, `.env.example`, `.vscode` settings.
 - README, this CHANGELOG, and docs (requirements, architecture, deployment).
