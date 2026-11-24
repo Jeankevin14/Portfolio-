@@ -5,6 +5,8 @@ My personal portfolio website: **https://jeankevin.vercel.app**
 It shows who I am, my skills, my projects (with case studies), my education and my certificates.
 It is a plain static website (HTML, CSS and JavaScript, with Three.js for the 3D block background). There is no build step and no database.
 
+![Portfolio home page](og-preview.jpg)
+
 ## How to change something
 
 Almost everything you see on the page comes from **one data block** at the top of the script in `index.html`
