@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brainy Blooms Student Assessment — Case study by Jean Kevin D</title>
+<meta name="description" content="Case study: an online assessment website for three CBSE schools. Children take their term papers exactly as printed, including listening and speaking, with no teacher in the room, and see their report the moment they finish.">
+<link rel="canonical" href="https://jeankevin.vercel.app/brainy-blooms-assessment/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='6' y='6' width='58' height='58' fill='%23FF5B14'/%3E%3Crect width='56' height='56' fill='%23111418'/%3E%3Ctext x='28' y='39' font-family='Arial Black,Arial' font-weight='900' font-size='26' fill='white' text-anchor='middle'%3EJK%3C/text%3E%3C/svg%3E">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Jean Kevin D">
+<meta property="og:title" content="Brainy Blooms Student Assessment — Case study by Jean Kevin D">
+<meta property="og:description" content="An online assessment website for three CBSE schools. Children take their term papers exactly as printed, with no teacher in the room, and see their report the moment they finish.">
+<meta property="og:url" content="https://jeankevin.vercel.app/brainy-blooms-assessment/">
+<meta property="og:image" content="https://jeankevin.vercel.app/brainy-blooms-assessment/img/og-preview.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Brainy Blooms Assessment welcome screen with the school crest and the student details form">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F7F7F4; --surface:#FFFFFF; --ink:#1B1A1F; --muted:#5E5C66; --line:#E4E2DC;
+  --accent:#8A2222; --accent-soft:#F8EEEA; --gold:#8F6400;
+  --display:'Bricolage Grotesque','Segoe UI',system-ui,sans-serif;
+  --body:'Instrument Sans','Segoe UI',system-ui,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root{--paper:#141317; --surface:#1D1C21; --ink:#EDEBE6; --muted:#A8A5AF; --line:#2E2C33; --accent:#F0A090; --accent-soft:#2A1A1A; --gold:#E0B246; color-scheme:dark}
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+.col{max-width:660px}
+h1,h2,h3{font-family:var(--display);letter-spacing:-.01em;margin:0;text-wrap:balance}
+h1{font-size:clamp(36px,6vw,62px);line-height:1.03;font-weight:800}
+h2{font-size:clamp(26px,3.4vw,34px);line-height:1.15;font-weight:800;margin-bottom:12px}
+h3{font-size:20px;font-weight:600;margin-bottom:6px}
+p{margin:0 0 12px}
+.back{display:inline-block;margin-top:26px;font-size:15px;font-weight:500;text-decoration:none}
+.back:hover{text-decoration:underline}
+.kicker{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:34px 0 12px}
+.lede{font-size:clamp(19px,2.2vw,22px);line-height:1.5;color:var(--muted);max-width:700px;margin-top:16px}
+.meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;margin:30px 0 0;padding-top:20px;border-top:1px solid var(--line)}
+.meta dt{font-size:12.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:600}
+.meta dd{margin:4px 0 0;font-weight:500;font-size:15.5px;line-height:1.45}
+
+/* device frames: every screenshot uses one of these two */
+.browser{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 22px 50px -24px rgba(20,10,10,.35)}
+.browser .bar{display:flex;gap:6px;padding:10px 12px;border-bottom:1px solid var(--line);background:var(--paper)}
+.browser .bar i{width:10px;height:10px;border-radius:50%;background:var(--line)}
+.phone{width:100%;max-width:250px;border:7px solid #1B1A1F;border-radius:30px;overflow:hidden;background:#1B1A1F;box-shadow:0 22px 44px -22px rgba(20,10,10,.45)}
+.phone img{border-radius:22px}
+
+/* hero: laptop with the phone overlapping its corner */
+.hero{position:relative;margin:36px 0 0;padding-bottom:40px}
+.hero .browser{width:84%}
+.hero .phone{position:absolute;right:0;bottom:0;width:22%;max-width:230px}
+
+section{padding:64px 0;border-top:1px solid var(--line)}
+.num{font-family:var(--display);font-weight:800;color:var(--accent);font-size:15px;letter-spacing:.04em;display:block;margin-bottom:8px}
+
+/* problem */
+.chain{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:20px 0 22px}
+.chain span{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 14px;font-weight:600;font-size:15px}
+.chain i{font-style:normal;color:var(--muted)}
+.chain .gap{border-style:dashed;border-color:var(--accent);color:var(--accent)}
+.need{background:var(--accent-soft);border-radius:12px;padding:16px 20px;font-weight:500;max-width:660px}
+
+/* role */
+.role{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:22px 0 0;padding:0;list-style:none}
+.role li{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;font-size:15.5px;color:var(--muted)}
+.role b{display:block;color:var(--ink);font-size:16.5px;margin-bottom:4px}
+
+/* features: text and screenshot side by side, screenshot always centred in its column */
+.feat{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center;padding:40px 0}
+.feat + .feat{border-top:1px dashed var(--line)}
+.feat .shot{display:flex;justify-content:center}
+.feat.flip .shot{order:-1}
+.feat ul{margin:10px 0 0;padding-left:20px;color:var(--muted);font-size:16px}
+.feat ul li{margin:4px 0}
+.feat.wide{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)}
+.feat.flip.wide{grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr)}
+.feat .shot > .browser{width:100%}
+
+/* how it works */
+.arch{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:22px 0 10px}
+.arch div{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px}
+.arch .tag{display:block;font-size:12px;font-weight:600;color:var(--gold);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.arch b{display:block;font-family:var(--display);font-size:19px;margin-bottom:4px}
+.arch small{color:var(--muted);font-size:15px;line-height:1.5;display:block}
+.cap{font-size:14px;color:var(--muted);margin-top:12px;text-align:center}
+
+/* decisions */
+.dec{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:20px}
+.dec div{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px}
+.dec p{color:var(--muted);font-size:15.5px;margin:0}
+
+/* timeline */
+.tl{list-style:none;padding:0;margin:22px 0 0;border-left:2px solid var(--line);max-width:660px}
+.tl li{position:relative;padding:0 0 22px 24px}
+.tl li::before{content:"";position:absolute;left:-7px;top:7px;width:12px;height:12px;border-radius:50%;background:var(--paper);border:2px solid var(--accent)}
+.tl b{display:block}
+.tl span{color:var(--muted);font-size:16px}
+.report{margin:36px auto 0;max-width:900px}
+
+footer{border-top:1px solid var(--line);padding:30px 0 50px;color:var(--muted);font-size:14.5px}
+
+@media (max-width:860px){
+  .meta{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .role{grid-template-columns:1fr 1fr}
+  .feat,.feat.wide,.feat.flip.wide{grid-template-columns:1fr;gap:24px;padding:32px 0}
+  .feat.flip .shot{order:0}
+  .arch{grid-template-columns:1fr}
+}
+@media (max-width:600px){
+  body{font-size:16.5px}
+  .wrap{padding:0 18px}
+  .role,.dec{grid-template-columns:1fr}
+  .hero{padding-bottom:0}
+  .hero .browser{width:100%}
+  .hero .phone{position:relative;right:auto;bottom:auto;width:34%;border-width:5px;border-radius:22px;margin:-46px 8px 0 auto}
+  .feat .shot .phone{max-width:230px}
+  section{padding:46px 0}
+}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+
+/* paper building blocks */
+.items{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 0}
+.items span{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 12px;font-weight:600;font-size:14.5px}
+.items span:nth-child(5),.items span:nth-child(8){border-color:var(--accent);color:var(--accent)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px;width:100%}
+.mic{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:14px}
+.mic div{border:1px solid var(--line);border-radius:12px;padding:12px;text-align:center;font-weight:600;font-size:15px}
+.mic div small{display:block;font-weight:400;color:var(--muted);font-size:13px}
+.mic .rec{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+.plays{display:flex;gap:8px;margin-top:14px;align-items:center;font-size:14px;color:var(--muted)}
+.plays i{width:26px;height:26px;border-radius:50%;border:2px solid var(--gold)}
+.plays i.on{background:var(--gold)}
+.flow{list-style:none;padding:0;margin:0;counter-reset:f}
+.flow li{position:relative;padding:0 0 14px 38px;font-size:15.5px;color:var(--muted)}
+.flow li b{color:var(--ink);display:block;font-size:16px}
+.flow li::before{counter-increment:f;content:counter(f);position:absolute;left:0;top:0;width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;font-size:13.5px;display:grid;place-items:center}
+.tbl{width:100%;border-collapse:collapse;margin-top:20px;font-size:15.5px}
+.tbl th{text-align:left;font-size:12.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:600;padding:0 14px 10px 0;border-bottom:1px solid var(--line)}
+.tbl td{padding:14px 14px 14px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl td:first-child{font-weight:600;width:40%}
+.tbl td:last-child{color:var(--muted)}
+.wins{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:22px}
+.wins div{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px}
+.wins b{display:block;font-family:var(--display);font-size:19px;margin-bottom:4px}
+.wins p{color:var(--muted);font-size:15.5px;margin:0}
+.next{list-style:none;padding:0;margin:14px 0 0}
+.next li{padding:6px 0 6px 30px;position:relative;color:var(--muted)}
+.next li::before{content:"";position:absolute;left:0;top:11px;width:16px;height:16px;border:2px solid var(--line);border-radius:4px}
+@media (max-width:860px){.wins{grid-template-columns:1fr}}
+@media (max-width:600px){
+  .tbl thead{display:none}
+  .tbl tr{display:block;border-bottom:1px solid var(--line);padding:12px 0}
+  .tbl td{display:block;border:0;padding:2px 0;width:auto!important}
+  .mic{grid-template-columns:1fr 1fr 1fr;gap:6px}
+  .mic div{padding:10px 6px;font-size:14px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="back" href="../">← Back to Jean Kevin D's portfolio</a>
+
+<header>
+  <div class="kicker">Case study · School assessment website</div>
+  <h1>Brainy Blooms Student Assessment</h1>
+  <p class="lede">An online assessment website for a group of three CBSE schools near Puducherry. Children in Classes 1 to 8 take their term papers on screen, exactly as printed, including listening, speaking and reading aloud, with no teacher in the room. Staff see every child's report the moment the paper ends.</p>
+  <dl class="meta">
+    <div><dt>My role</dt><dd>Solution design, product decisions, testing, deployment and handover</dd></div>
+    <div><dt>Used by</dt><dd>Students in Classes 1 to 8, teachers and school admin staff</dd></div>
+    <div><dt>Built with</dt><dd>HTML, CSS and JavaScript, Cloudflare Workers with Hono, Cloudflare D1</dd></div>
+    <div><dt>Cost to run</dt><dd>₹0 per month (Cloudflare free plan)</dd></div>
+  </dl>
+  <div class="hero">
+    <div class="browser"><div class="bar"><i></i><i></i><i></i></div><img src="img/d_welcome.jpg" alt="Welcome screen on a laptop: the school crest on a maroon panel and a form for school, name, class, section and parent's phone"></div>
+    <div class="phone"><img src="img/m_report.jpg" alt="A child's certificate-style report on a phone with the score, grade and marks for each section"></div>
+  </div>
+</header>
+
+<section>
+  <div class="col">
+    <span class="num">01 · The problem</span>
+    <h2>Language papers needed a teacher for every child</h2>
+    <p>The schools ran term assessments on printed papers and Google Forms. Every English and Tamil paper has listening, speaking and reading-aloud sections, so a teacher had to read each passage out and listen to every child, one by one.</p>
+  </div>
+  <div class="chain" aria-label="How assessments worked before">
+    <span>Printed paper</span><i>→</i><span>Retyped as a form</span><i>→</i><span>Teacher reads and listens</span><i>→</i><span class="gap">Marked by hand, days later</span>
+  </div>
+  <div class="col">
+    <p>Rebuilding a paper as form questions also changed its layout, so children saw something different from what they had practised. And papers change every 2 to 3 months for each of 8 classes, so any new process had to be quick for teachers who are not technical.</p>
+  </div>
+  <p class="need">What the schools needed: a child can sit the full paper alone, exactly as printed, and staff get a fair report straight away, at no running cost.</p>
+</section>
+
+<section>
+  <div class="col">
+    <span class="num">02 · What I did</span>
+    <h2>From a school's printed paper to a working website</h2>
+  </div>
+  <ul class="role">
+    <li><b>Understood how the school works</b>Studied the real printed papers for each class, including the listening and oral sections, before designing anything.</li>
+    <li><b>Made the product decisions</b>Papers exactly as printed, no student login, light theme only, and automatic marking with a short queue for teachers.</li>
+    <li><b>Designed the paper format</b>A paper is a list of simple parts, so any printed layout can be rebuilt on screen.</li>
+    <li><b>Made adding papers easy</b>A Word template with simple tags that teachers fill in, then upload, preview and save.</li>
+    <li><b>Tested every release</b>Automated browser tests of full journeys on phone and computer sizes, before anything went live.</li>
+    <li><b>Deployed and handed over</b>Put it live on Cloudflare, wrote a guide for teachers and admin staff, and rehearsed every database change on a copy first.</li>
+  </ul>
+</section>
+
+<section>
+  <span class="num">03 · The solution</span>
+  <h2>What it does</h2>
+
+  <div class="feat">
+    <div>
+      <h3>The real paper, on screen</h3>
+      <p>Sections, headings, notes, passages and pictures appear in the same order as print, with the marks beside each question. Children see the paper they practised, not a quiz.</p>
+      <ul><li>No account or password: a child picks the school, types their name, class, section and a parent's phone number, and starts</li><li>A timer submits the paper by itself, and a closed page can be reopened with the time left</li></ul>
+    </div>
+    <div class="shot"><div class="card">
+      <h3>Every paper is built from these parts</h3>
+      <div class="items" aria-label="Paper parts"><span>Section</span><span>Heading</span><span>Note</span><span>Passage</span><span>Listen</span><span>Choice</span><span>Fill in</span><span>Oral</span></div>
+      <p class="cap" style="text-align:left">Big tap buttons for options, Tamil letters and word order, so Class 1 children don't have to type.</p>
+    </div></div>
+  </div>
+
+  <div class="feat flip">
+    <div>
+      <h3>Listening and speaking, with no teacher</h3>
+      <p>Each listening passage plays in the teacher's own recorded voice, or a computer voice in English or Tamil, up to 5 times. For speaking and reading aloud, the child taps the microphone and speaks. The answer is recorded, turned into text and marked.</p>
+      <ul><li>Up to 60 seconds per spoken answer</li><li>Staff can listen to the recording, read what was heard and change the mark</li></ul>
+    </div>
+    <div class="shot"><div class="card">
+      <h3>Clear microphone states</h3>
+      <div class="mic"><div>Ready<small>Tap to speak</small></div><div class="rec">Recording<small>Tap to stop</small></div><div>Saved<small>Marked</small></div></div>
+      <div class="plays" aria-label="Listening passage played 2 of 5 times"><i class="on"></i><i class="on"></i><i></i><i></i><i></i><span>Played 2 of 5</span></div>
+    </div></div>
+  </div>
+
+  <div class="feat">
+    <div>
+      <h3>A report the moment the paper ends</h3>
+      <p>As soon as a child finishes, they see a certificate-style report with the score, percentage, grade and marks for each section, instead of waiting days for hand marking.</p>
+      <ul><li>Staff filter reports by term, paper, school, class and section</li><li>Class summaries and a download that opens straight in Excel</li></ul>
+    </div>
+    <div class="shot"><div class="phone"><img src="img/m_report.jpg" loading="lazy" decoding="async" alt="Report on a phone showing the child's total, grade and section marks"></div></div>
+  </div>
+
+  <div class="feat flip">
+    <div>
+      <h3>New papers every term, no developer needed</h3>
+      <p>Teachers fill a Word template with simple tags, then admin staff upload the file. The site reads it in the browser and shows it exactly as students will see it, before saving.</p>
+      <ul><li>Pictures and the teacher's recorded voice are added after the preview</li><li>A new term keeps old reports separate</li></ul>
+    </div>
+    <div class="shot"><div class="card">
+      <ol class="flow">
+        <li><b>Fill the Word template</b>Tags like Q, ANSWER, MARKS, LISTEN and ORAL</li>
+        <li><b>Upload the .docx</b>Or paste the text</li>
+        <li><b>Preview</b>Exactly as the child will see it</li>
+        <li><b>Add pictures and voice, then save</b>Ready for the class</li>
+      </ol>
+    </div></div>
+  </div>
+</section>
+
+<section>
+  <div class="col">
+    <span class="num">04 · How it works</span>
+    <h2>One small server, one database, free to run</h2>
+  </div>
+  <div class="arch">
+    <div><span class="tag">In the browser</span><b>Website</b><small>Shows the paper, plays the passages, records spoken answers and turns speech into text with Chrome's built-in speech recognition.</small></div>
+    <div><span class="tag">The logic</span><b>Cloudflare Worker</b><small>Checks logins, works out the marks when a paper is submitted, and keeps correct answers away from the child's device.</small></div>
+    <div><span class="tag">The data</span><b>Cloudflare D1</b><small>Stores papers, terms, students, answers, marks and recordings. Recordings are for signed-in staff only.</small></div>
+  </div>
+  <p class="cap">Speech-to-text runs in the browser, so there are no paid AI calls while children take papers.</p>
+</section>
+
+<section>
+  <div class="col">
+    <span class="num">05 · Fair marking</span>
+    <h2>The same rules for every child</h2>
+  </div>
+  <div class="dec">
+    <div><h3>Typed answers</h3><p>Capital letters, spaces and punctuation are ignored. The spelling must match one of the allowed answers, so a spelling mistake is wrong.</p></div>
+    <div><h3>Keyword answers</h3><p>For open replies like "say any 2 of bath, brush, teeth", each listed keyword earns marks, up to the number needed.</p></div>
+    <div><h3>Reading aloud</h3><p>The share of words read correctly sets the mark. 80% or more earns full marks; less earns a share, rounded to half a mark.</p></div>
+    <div><h3>Teacher marks</h3><p>Drawings and free writing wait in a short queue for staff, and the report updates when they are marked.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="col">
+    <span class="num">06 · Key decisions</span>
+    <h2>Choices I made, and why</h2>
+  </div>
+  <div class="dec">
+    <div><h3>Exactly as printed, not a quiz</h3><p>My first idea was to turn papers into quiz questions. Listening to the school showed it was wrong: children needed the paper they practised, unchanged.</p></div>
+    <div><h3>No login for students</h3><p>Young children can't manage passwords. Name, class, section and a parent's phone number are enough to start and to find the report later.</p></div>
+    <div><h3>A Word template, not an editor</h3><p>Teachers already write papers in Word. A template they fill in beat building a complex paper editor they would have to learn.</p></div>
+    <div><h3>Light theme only, big buttons</h3><p>Dark mode on lab computers would flip the colours and confuse young children. Large tap targets suit small hands on phones and touchscreens.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="col">
+    <span class="num">07 · Challenges</span>
+    <h2>Problems I hit, and how I solved them</h2>
+  </div>
+  <table class="tbl">
+    <thead><tr><th>Challenge</th><th>What I did</th></tr></thead>
+    <tbody>
+      <tr><td>Marking spoken answers with no teacher</td><td>Three rules: whole answer, keywords, and reading aloud (80% of words read earns full marks).</td></tr>
+      <tr><td>The template reader picked up its own instructions</td><td>Added a "QUESTIONS START BELOW" marker, so only the text after it becomes questions.</td></tr>
+      <tr><td>The Tamil text in the school's PDF was broken</td><td>Rebuilt the sample paper as a Word file with correct Tamil.</td></tr>
+      <tr><td>The free plan allows very little processing per request</td><td>Marks are worked out once, when a paper is submitted, and saved, so report pages stay light.</td></tr>
+      <tr><td>Reopening a paper to get extra time</td><td>Time left is always worked out on the server from the start time.</td></tr>
+      <tr><td>Uploaded files could carry harmful content</td><td>Students can upload only sound, and staff only pictures and sound from an allowed list, served with strict security settings.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="col">
+    <span class="num">08 · Results</span>
+    <h2>Live, free to run, and ready for its first term</h2>
+  </div>
+  <div class="wins">
+    <div><b>No teacher needed</b><p>A child can finish a full English, EVS, Maths or Tamil paper, including listening and speaking, without an adult reading or listening.</p></div>
+    <div><b>Instant results</b><p>Reports and section marks appear the moment a paper ends, instead of after days of hand marking.</p></div>
+    <div><b>Minutes to add a paper</b><p>A teacher fills the Word template and admin staff upload it. No developer needed.</p></div>
+  </div>
+  <div class="col" style="margin-top:22px">
+    <p>Every release was tested end to end with automated browser tests: setup, paper upload, a child taking a whole Class 1 paper, recordings, teacher marking, summaries, Excel export and staff accounts, on phone and computer sizes. It is planned for about 3,000 students, which fits the free plan with smaller recordings and a clean-up step.</p>
+  </div>
+</section>
+
+<section>
+  <div class="col">
+    <span class="num">09 · What I learned</span>
+    <h2>Listen to how the school already works</h2>
+    <p>My first design, turning papers into quiz questions, was wrong. The school needed its own paper, unchanged. Listening first would have saved that step.</p>
+    <p>Hard limits helped. No teacher, no budget and no student login pushed the product towards automatic marking and a simple Word workflow.</p>
+    <p>Free plans need careful design. Working out marks once, at submit time, kept every request inside the free limits.</p>
+    <h3 style="margin-top:26px">Next steps</h3>
+    <ul class="next">
+      <li>Test recording with headsets on the lab computers</li>
+      <li>Upload the first real papers for all classes</li>
+      <li>Choose the storage plan for 3,000 students</li>
+      <li>Collect feedback from teachers after the first term</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  All screenshots use sample data. Names, phone numbers and marks shown are examples, not real student records. The Brainy Blooms name and crest belong to the school.
+  <p style="margin-top:14px"><a href="../">← Back to Jean Kevin D's portfolio</a></p>
+</footer>
+
+</div>
+</body>
+</html>
