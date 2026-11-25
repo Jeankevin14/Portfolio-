@@ -3,6 +3,11 @@
 All notable changes to this website. Newest first.
 Versions follow `vMAJOR.MINOR.PATCH` (see docs/deployment.md).
 
+## [1.2.0] - 2026-11-25
+### Added
+- Search engine basics: `sitemap.xml`, `robots.txt`, and structured data that tells Google who the site belongs to (with links to GitHub and LinkedIn) and marks the case studies as articles.
+- Tests for the sitemap, robots.txt, canonical links and structured data.
+
 ## [1.1.0] - 2026-11-25
 ### Added
 - Case study page for Brainy Blooms Student Assessment, linked from its project card.
