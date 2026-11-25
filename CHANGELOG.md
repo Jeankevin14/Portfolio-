@@ -3,6 +3,10 @@
 All notable changes to this website. Newest first.
 Versions follow `vMAJOR.MINOR.PATCH` (see docs/deployment.md).
 
+## [1.2.1] - 2026-11-25
+### Added
+- Google Search Console verification file. Do not delete it, or Search Console stops working.
+
 ## [1.2.0] - 2026-11-25
 ### Added
 - Search engine basics: `sitemap.xml`, `robots.txt`, and structured data that tells Google who the site belongs to (with links to GitHub and LinkedIn) and marks the case studies as articles.

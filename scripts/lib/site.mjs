@@ -20,7 +20,9 @@ export function walk(dir = ROOT, out = []) {
 }
 
 export const rel = (file) => relative(ROOT, file).split('\\').join('/');
-export const htmlPages = () => walk().filter((f) => f.endsWith('.html'));
+// Google Search Console verification files (googleXXXX.html) are not pages, so the checks skip them.
+export const isGoogleVerification = (f) => /(^|\/)google[0-9a-f]+\.html$/.test(f);
+export const htmlPages = () => walk().filter((f) => f.endsWith('.html') && !isGoogleVerification(f));
 export const read = (file) => readFileSync(file, 'utf8');
 
 // Inline <script> blocks (not <script src=...>), with the line they start on.
