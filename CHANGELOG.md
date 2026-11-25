@@ -3,6 +3,11 @@
 All notable changes to this website. Newest first.
 Versions follow `vMAJOR.MINOR.PATCH` (see docs/deployment.md).
 
+## [1.1.0] - 2026-11-25
+### Added
+- Case study page for Brainy Blooms Student Assessment, linked from its project card.
+- The live-site check now also opens the new case study page.
+
 ## [1.0.0] - 2026-11-22
 ### Added
 - Project standard setup: CI on every pull request (lint, secrets check, build check, tests).

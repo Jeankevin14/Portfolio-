@@ -22,7 +22,7 @@ Almost everything you see on the page comes from **one data block** at the top o
 | Certificates | `CERTS` (put the image file next to `index.html`) |
 | Resume | replace `Jean-Kevin-D-Resume.pdf` |
 
-Case study pages live in their own folders, for example `brainy-blooms/index.html`.
+Case study pages live in their own folders: `brainy-blooms/index.html` and `brainy-blooms-assessment/index.html`.
 
 ## Everyday workflow (VS Code)
 
@@ -51,7 +51,7 @@ Or use **Run and Debug** → "Run all checks".
 ```
 index.html              the whole home page (data block at the top of the script)
 brainy-blooms/          Brainy Blooms Work Tracker case study page
-brainy-blooms-assessment/  screenshots for the Student Assessment card
+brainy-blooms-assessment/  Brainy Blooms Student Assessment case study page
 next/                   logo for the "next project" teaser
 cert-*.jpg              certificate images
 docs/                   requirements, architecture, deployment

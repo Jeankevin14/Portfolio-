@@ -4,6 +4,7 @@ const base = (process.argv[2] || 'https://jeankevin.vercel.app').replace(/\/$/, 
 const pages = [
   ['/', ['Jean Kevin D', 'const PROJECTS']],
   ['/brainy-blooms/', ['Brainy Blooms']],
+  ['/brainy-blooms-assessment/', ['Brainy Blooms Student Assessment']],
 ];
 const files = ['/Jean-Kevin-D-Resume.pdf', '/og-preview.jpg', '/me.jpg'];
 const problems = [];

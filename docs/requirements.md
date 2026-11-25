@@ -13,7 +13,7 @@ A personal portfolio that helps recruiters and clients quickly see who Jean Kevi
 - About, quick facts and strengths.
 - Skills grouped by type, with "used in" links to projects.
 - Project cards: screenshots (desktop + phone), tech stack, features, links, case study.
-- Case study page for Brainy Blooms Work Tracker.
+- Case study pages for Brainy Blooms Work Tracker and Brainy Blooms Student Assessment.
 - "Next project" teaser.
 - Education, leadership and activities.
 - Certificates with a full-size viewer and verification links.
