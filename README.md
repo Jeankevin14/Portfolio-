@@ -54,6 +54,7 @@ brainy-blooms/          Brainy Blooms Work Tracker case study page
 brainy-blooms-assessment/  Brainy Blooms Student Assessment case study page
 next/                   logo for the "next project" teaser
 cert-*.jpg              certificate images
+sitemap.xml, robots.txt  help Google find every page (add new pages to sitemap.xml)
 docs/                   requirements, architecture, deployment
 scripts/                the checks that CI runs
 tests/                  automated tests
