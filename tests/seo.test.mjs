@@ -45,3 +45,10 @@ test('home page says who the site belongs to', () => {
   assert.ok(person.sameAs.includes('https://github.com/Jeankevin14'), 'Person must link to GitHub');
   assert.ok(person.sameAs.some((u) => u.includes('linkedin.com')), 'Person must link to LinkedIn');
 });
+
+test('Google Search Console verification file is present', () => {
+  // Deleting this file un-verifies the site in Google Search Console.
+  const file = 'google6abee150a974616b.html';
+  assert.ok(exists(file), `${file} is missing`);
+  assert.equal(read(join(ROOT, file)).trim(), `google-site-verification: ${file}`);
+});
