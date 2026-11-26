@@ -19,7 +19,7 @@ for (const file of walk()) {
   count++; bytes += statSync(file).size;
 }
 
-const must = ['index.html', 'brainy-blooms/index.html', 'brainy-blooms-assessment/index.html', 'Jean-Kevin-D-Resume.pdf', 'og-preview.jpg', 'robots.txt', 'sitemap.xml'];
+const must = ['index.html', 'brainy-blooms/index.html', 'brainy-blooms-assessment/index.html', 'Jean-Kevin-D-Resume.pdf', 'og-preview.jpg', 'robots.txt', 'sitemap.xml', 'favicon.ico', 'favicon-48.png', 'icon-192.png', 'apple-touch-icon.png'];
 const missing = must.filter((f) => !existsSync(join(DIST, f)));
 if (missing.length) { console.error('Build failed. Missing: ' + missing.join(', ')); process.exit(1); }
 

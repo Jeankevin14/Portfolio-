@@ -3,6 +3,11 @@
 All notable changes to this website. Newest first.
 Versions follow `vMAJOR.MINOR.PATCH` (see docs/deployment.md).
 
+## [1.3.1] - 2026-11-26
+### Changed
+- Site icon is now my photo, as real image files (`favicon.ico`, `favicon-48.png`, `icon-192.png`, `apple-touch-icon.png`) that Google can read. Google showed a plain globe before.
+- Added `og:site_name` and a site name in the structured data, so Google shows "Jean Kevin D" instead of "Vercel" above the result.
+
 ## [1.3.0] - 2026-11-26
 ### Added
 - My profile photo (`me.jpg`, the one already on the page) is marked as my photo in the structured data and listed in the sitemap, so Google can show it for searches of my name. Nothing visible changes.
