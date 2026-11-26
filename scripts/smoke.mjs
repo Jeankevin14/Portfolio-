@@ -6,7 +6,7 @@ const pages = [
   ['/brainy-blooms/', ['Brainy Blooms']],
   ['/brainy-blooms-assessment/', ['Brainy Blooms Student Assessment']],
 ];
-const files = ['/Jean-Kevin-D-Resume.pdf', '/og-preview.jpg', '/me.jpg', '/robots.txt', '/sitemap.xml'];
+const files = ['/Jean-Kevin-D-Resume.pdf', '/og-preview.jpg', '/me.jpg', '/favicon.ico', '/favicon-48.png', '/robots.txt', '/sitemap.xml'];
 const problems = [];
 
 async function get(path) {

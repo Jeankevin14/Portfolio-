@@ -56,3 +56,18 @@ test('Google Search Console verification file is present', () => {
   assert.ok(exists(file), `${file} is missing`);
   assert.equal(read(join(ROOT, file)).trim(), `google-site-verification: ${file}`);
 });
+
+test('every page has a site icon Google can read', () => {
+  // Google ignores icons written inline as data: links, and needs a size that is a multiple of 48px.
+  for (const f of ['favicon.ico', 'favicon-48.png', 'icon-192.png', 'apple-touch-icon.png']) assert.ok(exists(f), `${f} is missing`);
+  for (const page of htmlPages()) {
+    const html = read(page);
+    assert.ok(html.includes('<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">'), `${rel(page)}: missing the 48px icon link`);
+    assert.doesNotMatch(html, /<link rel="icon" href="data:/, `${rel(page)}: inline data: icons are not read by Google`);
+  }
+});
+
+test('Google is told the site name', () => {
+  const html = read(join(ROOT, 'index.html'));
+  assert.ok(html.includes('<meta property="og:site_name" content="Jean Kevin D">'), 'index.html: add og:site_name');
+});
