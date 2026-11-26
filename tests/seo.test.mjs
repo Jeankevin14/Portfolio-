@@ -46,6 +46,7 @@ test('home page says who the site belongs to', () => {
   assert.ok(person.sameAs.some((u) => u.includes('linkedin.com')), 'Person must link to LinkedIn');
   const photo = person.image.url.replace('https://jeankevin.vercel.app/', '');
   assert.ok(exists(photo), `profile photo "${photo}" is missing`);
+  assert.ok(read(join(ROOT, 'index.html')).includes(`src="${photo}"`), 'the profile photo must also be shown on the page');
   assert.ok(read(join(ROOT, 'sitemap.xml')).includes(person.image.url), 'the profile photo must be in sitemap.xml');
 });
 

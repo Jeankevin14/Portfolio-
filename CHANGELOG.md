@@ -5,7 +5,7 @@ Versions follow `vMAJOR.MINOR.PATCH` (see docs/deployment.md).
 
 ## [1.3.0] - 2026-11-26
 ### Added
-- Profile photo for Google (`jean-kevin-d.jpg`): marked as my photo in the structured data and listed in the sitemap, so Google can show it for searches of my name. The photo on the page itself does not change.
+- My profile photo (`me.jpg`, the one already on the page) is marked as my photo in the structured data and listed in the sitemap, so Google can show it for searches of my name. Nothing visible changes.
 
 ## [1.2.1] - 2026-11-25
 ### Added
