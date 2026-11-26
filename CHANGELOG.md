@@ -3,6 +3,10 @@
 All notable changes to this website. Newest first.
 Versions follow `vMAJOR.MINOR.PATCH` (see docs/deployment.md).
 
+## [1.3.0] - 2026-11-26
+### Added
+- My profile photo (`me.jpg`, the one already on the page) is marked as my photo in the structured data and listed in the sitemap, so Google can show it for searches of my name. Nothing visible changes.
+
 ## [1.2.1] - 2026-11-25
 ### Added
 - Google Search Console verification file. Do not delete it, or Search Console stops working.
