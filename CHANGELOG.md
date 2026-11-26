@@ -4,8 +4,8 @@ All notable changes to this website. Newest first.
 Versions follow `vMAJOR.MINOR.PATCH` (see docs/deployment.md).
 
 ## [1.3.0] - 2026-11-26
-### Changed
-- New profile photo (`jean-kevin-d.jpg`) on the About section, in the structured data and in the sitemap, so Google can show it for searches of my name. The old `me.jpg` is removed.
+### Added
+- Profile photo for Google (`jean-kevin-d.jpg`): marked as my photo in the structured data and listed in the sitemap, so Google can show it for searches of my name. The photo on the page itself does not change.
 
 ## [1.2.1] - 2026-11-25
 ### Added
